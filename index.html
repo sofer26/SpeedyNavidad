@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#103b2c">
+<title>Navidad con Speedy 🎄</title>
+<style>
+:root{--green:#103b2c;--deep:#08271d;--red:#c93b42;--gold:#ffd778;--cream:#fff8e8;--mint:#bde9c8}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;min-height:100vh;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--cream);background:radial-gradient(circle at 15% 8%,#246447 0,transparent 28%),radial-gradient(circle at 90% 25%,#6e2027 0,transparent 25%),linear-gradient(145deg,var(--deep),var(--green) 55%,#071c16);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.16;background-image:radial-gradient(#fff 1px,transparent 1px);background-size:27px 27px}
+.wrap{width:min(960px,100%);margin:auto;padding:24px 16px 42px;position:relative;z-index:1}
+.lights{display:flex;justify-content:center;gap:14px;margin:0 auto 18px;max-width:600px}
+.bulb{width:12px;height:18px;border-radius:50% 50% 45% 45%;background:#ffdc76;box-shadow:0 0 17px currentColor;animation:glow 1.7s infinite alternate}
+.bulb:nth-child(3n){background:#f56c70;animation-delay:.4s}.bulb:nth-child(3n + 1){background:#9ce7b0;animation-delay:.8s}
+@keyframes glow{from{opacity:.55;filter:brightness(.8)}to{opacity:1;filter:brightness(1.4)}}
+.hero{text-align:center;padding:28px 22px 30px;border:1px solid #f8d78280;border-radius:28px;background:linear-gradient(145deg,#174b36eF,#0a2d22f2);box-shadow:0 24px 70px #0005;position:relative;overflow:hidden}
+.hero:after{content:"";position:absolute;width:240px;height:240px;border:1px solid #ffdf8a30;border-radius:50%;right:-100px;top:-110px;box-shadow:0 0 0 24px #ffdf8a0b,0 0 0 48px #ffdf8a08}
+.eyebrow{letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-size:.76rem;font-weight:800}
+h1{font-family:Georgia,'Times New Roman',serif;font-size:clamp(2.7rem,9vw,5.5rem);line-height:.98;margin:14px 0;color:#fff5d8;text-shadow:0 4px 0 #7a432b,0 8px 28px #0006}
+h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin-top:8px}
+.subtitle{font-size:1.08rem;line-height:1.6;max-width:590px;margin:18px auto;color:#e7f1e8}
+.emoji-row{font-size:clamp(1.7rem,5vw,2.6rem);letter-spacing:.18em;margin:18px 0;animation:bob 3s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.pill{display:inline-flex;gap:8px;align-items:center;border:1px solid #ffd77870;border-radius:999px;padding:9px 14px;color:var(--gold);font-weight:700;font-size:.9rem}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;margin:18px 0}
+.info{background:#fffaf00d;border:1px solid #fff4d52b;border-radius:18px;padding:18px;backdrop-filter:blur(8px)}
+.info .icon{font-size:1.55rem}.info h2{font-size:.82rem;text-transform:uppercase;letter-spacing:.12em;color:var(--mint);margin:9px 0 5px}.info p{margin:0;font-size:1.05rem;font-weight:700;line-height:1.45;overflow-wrap:anywhere}
+.countdown{margin:16px 0 20px;text-align:center;padding:22px 14px;border-radius:20px;background:linear-gradient(135deg,#9d252d,#6e1823);border:1px solid #ffb8a35c}
+.countdown h2{margin:0 0 14px;font:italic 1.55rem Georgia,serif;color:#ffe5a4}
+.clock{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;max-width:500px;margin:auto}
+.timebox{background:#310d16a8;border-radius:12px;padding:12px 5px}
+.timebox strong{display:block;font-size:clamp(1.4rem,5vw,2.1rem);color:#fff6df;font-variant-numeric:tabular-nums}
+.timebox span{font-size:.68rem;text-transform:uppercase;letter-spacing:.08em;color:#ffd7c8}
+.actions{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:18px 0}
+.btn{display:flex;justify-content:center;align-items:center;gap:9px;text-align:center;text-decoration:none;border:0;border-radius:15px;padding:16px 14px;font:800 1rem system-ui;cursor:pointer;transition:transform .18s,filter .18s;min-height:56px}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.08)}.btn:active{transform:scale(.98)}
+.btn-gold{background:linear-gradient(135deg,#ffe6a0,#e8b94f);color:#2d2817;box-shadow:0 8px 22px #0002}
+.btn-light{background:#fff8e8;color:#163d2b;border:1px solid #e4d7b9}
+.note{font-size:.84rem;color:#d5e5d8;line-height:1.55;text-align:center}
+.music-card{margin:18px 0 0;padding:18px;border:1px solid #ffd77855;border-radius:20px;background:#ffffff0b}
+.music-card h2{margin:0 0 8px;text-align:center;color:var(--gold);font:italic 1.45rem Georgia,serif}
+.music-card p{margin:0 0 14px;text-align:center;color:#d5e5d8;font-size:.88rem;line-height:1.5}
+.youtube-frame{position:relative;width:100%;aspect-ratio:16/9;overflow:hidden;border-radius:14px;background:#000}
+.youtube-frame iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+.music-link{display:flex;justify-content:center;margin-top:12px}
+.music-card audio{display:block;width:100%;margin:14px auto 8px;border-radius:12px}
+.audio-help,.audio-credit{font-size:.78rem!important;color:#c8ded0!important;margin-top:8px!important}
+.audio-credit{opacity:.85}
+
+.footer{text-align:center;margin:24px 0 0;color:#c3d9c9;font-size:.84rem}
+.snow{position:fixed;top:-15px;color:#fff;z-index:3;pointer-events:none;animation:fall linear forwards;text-shadow:0 0 5px #fff}
+@keyframes fall{to{transform:translateY(110vh) rotate(360deg);opacity:.15}}
+.confetti{position:fixed;z-index:5;pointer-events:none;font-size:24px;animation:pop 1.8s ease-out forwards}
+@keyframes pop{0%{transform:translate(0,0) scale(.4);opacity:0}15%{opacity:1}100%{transform:translate(var(--x),var(--y)) rotate(300deg) scale(1.2);opacity:0}}
+@media(max-width:560px){.wrap{padding:14px 12px 28px}.hero{padding:25px 16px;border-radius:22px}.grid{gap:10px}.info{padding:14px}.actions{grid-template-columns:1fr}.subtitle{font-size:1rem}.lights{gap:10px}.bulb{width:10px;height:15px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;animation-iteration-count:1!important;scroll-behavior:auto!important}}
+
+.music-card{margin:18px 0;padding:20px;border:1px solid #fff4d52b;border-radius:20px;background:#fffaf00d;text-align:center}
+.music-card h2{margin:0 0 8px;color:#ffe3a0;font:italic 1.55rem Georgia,serif}
+.music-card p{color:#d5e5d8;line-height:1.55}
+.music-card audio{display:block;width:100%;max-width:620px;margin:14px auto 8px}
+.audio-help,.audio-credit{font-size:.78rem!important;color:#c8ded0!important;margin-top:8px!important}
+.music-link{display:flex;justify-content:center;margin-top:12px}
+
+
+.welcome-overlay{position:fixed;inset:0;z-index:20;display:flex;align-items:center;justify-content:center;padding:22px;background:radial-gradient(circle at 50% 25%,#246447,#08271d 72%);transition:opacity .45s ease,visibility .45s ease}
+.welcome-overlay.hidden{opacity:0;visibility:hidden;pointer-events:none}
+.welcome-card{width:min(460px,100%);text-align:center;padding:32px 24px;border:1px solid #ffd7788a;border-radius:26px;background:#103b2cf2;box-shadow:0 24px 70px #0007}
+.welcome-card .tree{font-size:3rem;line-height:1.2}
+.welcome-card h2{font:clamp(2rem,8vw,3rem) Georgia,serif;color:#fff3d3;margin:14px 0 8px}
+.welcome-card p{color:#d5e5d8;line-height:1.55}
+.welcome-card .btn{width:100%;margin-top:12px}
+
+</style>
+</head>
+<body>
+
+<div class="welcome-overlay" id="welcomeOverlay">
+  <div class="welcome-card">
+    <div class="tree" aria-hidden="true">🎄✨🎁</div>
+    <h2>Navidad con Speedy</h2>
+    <p>Juntos celebramos, juntos brillamos</p>
+    <p>Toca para abrir tu invitación y activar la música.</p>
+    <button class="btn btn-gold" id="openInvitation" type="button">🎄 Abrir invitación</button>
+  </div>
+</div>
+
+<div class="wrap">
+  <div class="lights" aria-hidden="true"><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i><i class="bulb"></i></div>
+  <main class="hero">
+    <div class="eyebrow">Una celebración para compartir</div>
+    <div class="emoji-row" aria-hidden="true">🎅 🎁 🎄</div>
+    <h1>Navidad <span>con Speedy</span></h1>
+    <p class="subtitle" style="color:var(--gold);font-weight:800;margin-top:0">Juntos celebramos, juntos brillamos</p>
+    <p class="subtitle">Se viene una celebración llena de alegría, buenos momentos y espíritu navideño. ¡Queremos compartirla contigo!</p>
+    <div class="pill">✨ ¡Estás invitado! ✨</div>
+  </main>
+
+  <section class="grid" aria-label="Detalles del evento">
+    <article class="info"><div class="icon">📅</div><h2>Fecha</h2><p id="eventDate">Sábado, 5 de diciembre de 2026</p></article>
+    <article class="info"><div class="icon">🕐</div><h2>Hora</h2><p>1:00 p. m.</p></article>
+    <article class="info" style="grid-column:1/-1"><div class="icon">📍</div><h2>¿Dónde nos vemos?</h2><p>Calle Nueva Castilla 123 — Santiago de Surco</p></article>
+  </section>
+
+  <section class="countdown" aria-live="polite">
+    <h2 id="countTitle">La cuenta regresiva comienza…</h2>
+    <div class="clock" id="clock">
+      <div class="timebox"><strong id="days">00</strong><span>Días</span></div>
+      <div class="timebox"><strong id="hours">00</strong><span>Horas</span></div>
+      <div class="timebox"><strong id="minutes">00</strong><span>Minutos</span></div>
+      <div class="timebox"><strong id="seconds">00</strong><span>Segundos</span></div>
+    </div>
+  </section>
+
+  <section class="actions">
+    <a class="btn btn-gold" href="https://maps.app.goo.gl/m6HQCko57iNEJ1kaA" target="_blank" rel="noopener noreferrer">⌖ Ver ubicación en Maps</a>
+    <button class="btn btn-light" id="rsvp">🎄 Confirmar asistencia</button>
+  </section>
+  <p class="note">Al confirmar, se abrirá WhatsApp con un mensaje listo para enviar. Solo tendrás que tocar <strong>Enviar</strong>.</p>
+  <section class="music-card" aria-label="Música navideña">
+    <h2>🎶 Música para celebrar</h2>
+    <p>La canción que elegiste para acompañar nuestra celebración. Pulsa reproducir para escucharla.</p>
+    <audio id="christmasAudio" controls autoplay preload="auto" playsinline>
+      <source src="navidad-speedy.mp3" type="audio/mpeg">
+      Tu navegador no puede reproducir audio HTML5.
+    </audio>
+    <p class="audio-help">El archivo de música debe estar junto a esta invitación. Si compartes la invitación por internet, publica también el MP3 en la misma carpeta del sitio.</p>
+  </section>
+  <footer class="footer">Con cariño, equipo Speedy ❤️ · ¡No faltes!</footer>
+</div>
+<script>
+// CONFIGURACIÓN: escribe el número del organizador con código de país, solo dígitos.
+// Perú: 51 + número móvil. Ejemplo ficticio: 51987654321. Reemplázalo antes de compartir.
+const WHATSAPP_ORGANIZADOR = "51993676345";
+const EVENTO = "Navidad con Speedy";
+const FECHA_EVENTO = new Date("2026-12-05T13:00:00-05:00");
+
+const pad = n => String(n).padStart(2,"0");
+function updateCountdown(){
+  const diff = FECHA_EVENTO.getTime() - Date.now();
+  const title = document.getElementById("countTitle");
+  if(diff <= 0){
+    document.getElementById("clock").style.display = "none";
+    title.textContent = diff > -86400000 ? "🎉 ¡Llegó el momento de celebrar!" : "🎄 ¡Gracias por ser parte de esta celebración!";
+    return;
+  }
+  document.getElementById("days").textContent = pad(Math.floor(diff/86400000));
+  document.getElementById("hours").textContent = pad(Math.floor(diff%86400000/3600000));
+  document.getElementById("minutes").textContent = pad(Math.floor(diff%3600000/60000));
+  document.getElementById("seconds").textContent = pad(Math.floor(diff%60000/1000));
+}
+updateCountdown(); setInterval(updateCountdown,1000);
+
+document.getElementById("rsvp").addEventListener("click",()=>{
+  const phone = WHATSAPP_ORGANIZADOR.replace(/\D/g,"");
+  const msg = `¡Hola! Confirmo mi asistencia a ${EVENTO} 🎄
+Nombre: 
+Cantidad de asistentes: `;
+  const url = phone && !phone.includes("X") && phone.length >= 10
+    ? `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
+    : `https://wa.me/?text=${encodeURIComponent(msg + "\nOrganizador: por favor, configura el número de WhatsApp en la invitación.")}`;
+  window.open(url,"_blank","noopener,noreferrer");
+});
+
+// Nieve ligera y adaptable.
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+if(!reducedMotion){
+  function snowflake(){
+    const el=document.createElement("span"); el.className="snow"; el.textContent=Math.random()>.5?"❄":"✦";
+    el.style.left=Math.random()*100+"vw"; el.style.fontSize=(10+Math.random()*13)+"px";
+    el.style.opacity=(.35+Math.random()*.6).toFixed(2); el.style.animationDuration=(6+Math.random()*8)+"s";
+    document.body.appendChild(el); setTimeout(()=>el.remove(),15000);
+  }
+  for(let i=0;i<18;i++) setTimeout(snowflake,i*180);
+  setInterval(snowflake,420);
+  document.querySelector(".hero").addEventListener("click",e=>{
+    if(e.target.closest("a,button")) return;
+    const symbols=["🎁","⭐","🎄","✨"]; const r=document.querySelector(".hero").getBoundingClientRect();
+    for(let i=0;i<8;i++){const c=document.createElement("span");c.className="confetti";c.textContent=symbols[Math.floor(Math.random()*symbols.length)];c.style.left=(r.left+r.width/2)+"px";c.style.top=(r.top+r.height/2)+"px";c.style.setProperty("--x",(Math.random()*260-130)+"px");c.style.setProperty("--y",(Math.random()*220-110)+"px");document.body.appendChild(c);setTimeout(()=>c.remove(),1900)}
+  });
+}
+
+// La música se reproduce con el control HTML5 desde navidad-speedy.mp3, que debe estar junto a este archivo.
+
+// Intenta iniciar la música automáticamente. Chrome y los navegadores móviles
+// suelen bloquear el autoplay con sonido; en ese caso, el usuario debe pulsar Play.
+(() => {
+  const audio = document.getElementById("christmasAudio");
+  if (!audio) return;
+  audio.volume = 0.75;
+  audio.autoplay = true;
+  const attemptPlay = () => {
+    const promise = audio.play();
+    if (promise && typeof promise.catch === "function") {
+      promise.catch(() => {
+        // No forzamos sonido ni silenciamos el audio: dejamos los controles visibles.
+        audio.setAttribute("data-autoplay-blocked", "true");
+      });
+    }
+  };
+  if (document.readyState === "complete") attemptPlay();
+  else window.addEventListener("load", attemptPlay, { once: true });
+})();
+
+
+// Primera interacción: cierra la portada e intenta iniciar la música.
+// Los navegadores bloquean el autoplay audible hasta que el usuario interactúa.
+(() => {
+  const overlay = document.getElementById("welcomeOverlay");
+  const openButton = document.getElementById("openInvitation");
+  const audio = document.getElementById("christmasAudio");
+  if (!overlay || !openButton) return;
+  const enter = async () => {
+    overlay.classList.add("hidden");
+    if (audio) {
+      audio.volume = 0.75;
+      try { await audio.play(); }
+      catch (e) {
+        // Si el archivo aún no está cargado o el navegador lo bloquea, deja los controles visibles.
+        audio.focus();
+      }
+    }
+  };
+  openButton.addEventListener("click", enter, { once: true });
+})();
+
+</script>
+</body>
+</html>
