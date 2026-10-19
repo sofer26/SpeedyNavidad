@@ -87,9 +87,14 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
 .mini-times{display:flex;justify-content:space-between;margin-top:4px;color:#e5eee6;font-size:.62rem;font-variant-numeric:tabular-nums;opacity:.76}
 .mini-sparkle{font-size:.8rem;color:#ffd778;opacity:.7}
 
+
+/* Capa de nieve con canvas: renderizado consistente en Safari iOS y Android */
+#snowCanvas{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:8;display:block}
+
 </style>
 </head>
 <body>
+<canvas id="snowCanvas" aria-hidden="true"></canvas>
 
 <div class="welcome-overlay" id="welcomeOverlay">
   <div class="welcome-card">
@@ -181,54 +186,78 @@ document.getElementById("rsvp").addEventListener("click",()=>{
   const phone = WHATSAPP_ORGANIZADOR.replace(/\D/g,"");
   const msg = `¡Hola! Confirmo mi asistencia a ${EVENTO} 🎄
 Nombre: 
-Cantidad de asistentes: `;
+`;
   const url = phone && !phone.includes("X") && phone.length >= 10
     ? `https://wa.me/${phone}?text=${encodeURIComponent(msg)}`
     : `https://wa.me/?text=${encodeURIComponent(msg + "\nOrganizador: por favor, configura el número de WhatsApp en la invitación.")}`;
   window.open(url,"_blank","noopener,noreferrer");
 });
 
-// Nieve adaptable para Safari iOS y Android.
-// Si el dispositivo tiene "Reducir movimiento", mantenemos nieve más lenta y menos frecuente.
-const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-function snowflake(){
-  const el = document.createElement("span");
-  el.className = "snow";
-  el.textContent = Math.random() > 0.5 ? "❄" : "✦";
-  el.style.left = Math.random() * 100 + "vw";
-  el.style.fontSize = (10 + Math.random() * 13) + "px";
-  el.style.opacity = (0.35 + Math.random() * 0.6).toFixed(2);
-  const duration = reducedMotion ? (14 + Math.random() * 8) : (7 + Math.random() * 8);
-  el.style.animationDuration = duration + "s";
-  document.body.appendChild(el);
-  window.setTimeout(() => el.remove(), (duration + 1) * 1000);
-}
-const initialSnowCount = reducedMotion ? 8 : 18;
-for (let i = 0; i < initialSnowCount; i++) {
-  window.setTimeout(snowflake, i * (reducedMotion ? 350 : 180));
-}
-window.setInterval(snowflake, reducedMotion ? 1100 : 420);
+// Nieve mediante canvas: más fiable en Safari iOS y Android que animar muchos elementos DOM.
+(() => {
+  const canvas = document.getElementById("snowCanvas");
+  if (!canvas) return;
+  const ctx = canvas.getContext("2d", { alpha: true });
+  if (!ctx) return;
 
-if (!reducedMotion) {
-  const hero = document.querySelector(".hero");
-  if (hero) hero.addEventListener("click", e => {
-    if (e.target.closest("a,button")) return;
-    const symbols = ["🎁","⭐","🎄","✨"];
-    const r = hero.getBoundingClientRect();
-    for (let i = 0; i < 8; i++) {
-      const c = document.createElement("span");
-      c.className = "confetti";
-      c.textContent = symbols[Math.floor(Math.random() * symbols.length)];
-      c.style.left = (r.left + r.width / 2) + "px";
-      c.style.top = (r.top + r.height / 2) + "px";
-      c.style.setProperty("--x", (Math.random() * 260 - 130) + "px");
-      c.style.setProperty("--y", (Math.random() * 220 - 110) + "px");
-      document.body.appendChild(c);
-      window.setTimeout(() => c.remove(), 1900);
+  let width = 0, height = 0, flakes = [], raf = 0;
+  const mobile = window.matchMedia("(max-width: 700px)").matches;
+  const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const count = reducedMotion ? (mobile ? 24 : 38) : (mobile ? 58 : 92);
+  const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+  function resize() {
+    width = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+    height = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+    canvas.style.width = width + "px";
+    canvas.style.height = height + "px";
+    ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    flakes = Array.from({length: count}, () => ({
+      x: Math.random() * width,
+      y: Math.random() * height,
+      r: 1.1 + Math.random() * 2.4,
+      speed: (reducedMotion ? 0.25 : 0.55) + Math.random() * (reducedMotion ? 0.5 : 1.15),
+      drift: (Math.random() - 0.5) * (reducedMotion ? 0.35 : 0.8),
+      alpha: 0.35 + Math.random() * 0.55
+    }));
+  }
+  function draw() {
+    ctx.clearRect(0, 0, width, height);
+    for (const f of flakes) {
+      ctx.beginPath();
+      ctx.fillStyle = `rgba(255,255,255,${f.alpha})`;
+      ctx.shadowColor = "rgba(255,255,255,.45)";
+      ctx.shadowBlur = 4;
+      ctx.arc(f.x, f.y, f.r, 0, Math.PI * 2);
+      ctx.fill();
+      f.y += f.speed;
+      f.x += f.drift + Math.sin(f.y / 48) * 0.25;
+      if (f.y > height + 6) { f.y = -6; f.x = Math.random() * width; }
+      if (f.x < -6) f.x = width + 6;
+      if (f.x > width + 6) f.x = -6;
     }
+    ctx.shadowBlur = 0;
+    raf = window.requestAnimationFrame(draw);
+  }
+  function start() {
+    if (!raf) raf = window.requestAnimationFrame(draw);
+  }
+  function stop() {
+    if (raf) window.cancelAnimationFrame(raf);
+    raf = 0;
+  }
+  resize();
+  start();
+  window.addEventListener("resize", () => { stop(); resize(); start(); }, { passive: true });
+  window.addEventListener("orientationchange", () => {
+    window.setTimeout(() => { stop(); resize(); start(); }, 250);
+  }, { passive: true });
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) stop(); else start();
   });
-}
-
+})();
 // La música se reproduce con el control HTML5 desde navidad-speedy.mp3, que debe estar junto a este archivo.
 
 
