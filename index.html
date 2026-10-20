@@ -43,12 +43,14 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
 
 .perks{margin:18px 0 20px;padding:20px;border:1px solid #ffd77855;border-radius:20px;background:linear-gradient(135deg,#fffaf010,#ffd77808);box-shadow:0 10px 30px #0002}
 .perks-title{text-align:center;margin:0 0 15px;color:var(--gold);font:italic 1.55rem Georgia,serif}
-.perks-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.perk{display:flex;align-items:flex-start;gap:11px;padding:13px;border-radius:14px;background:#ffffff08;border:1px solid #fff4d51c}
-.perk-icon{font-size:1.5rem;line-height:1.25;flex:0 0 auto}
-.perk h3{margin:0 0 5px;color:#ffe3a0;font-size:.96rem}
+.perks-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0}
+.perk{display:flex;flex-direction:column;align-items:center;text-align:center;gap:10px;padding:14px 12px;border-radius:0;background:transparent;border:0;border-right:1px solid #ffd77855}
+.perk:last-child{border-right:0}
+.perk-icon{font-size:clamp(2.1rem,4vw,3rem);line-height:1.2;filter:drop-shadow(0 3px 8px #ffd77833)}
+.perk h3{margin:0 0 7px;color:#ffe3a0;font-size:.92rem;text-transform:uppercase;letter-spacing:.035em}
 .perk p{margin:0;color:#e1eee4;font-size:.88rem;line-height:1.5}
-@media(max-width:560px){.perks{padding:15px}.perks-grid{grid-template-columns:1fr}.perk{padding:12px}}
+@media(max-width:700px){.perks-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:12px}.perk:nth-child(2){border-right:0}.perk:nth-child(1),.perk:nth-child(2){border-bottom:1px solid #ffd77855;padding-bottom:18px}.perk:nth-child(3),.perk:nth-child(4){padding-top:18px}}
+@media(max-width:400px){.perks{padding:12px}.perks-grid{grid-template-columns:1fr}.perk{border-right:0!important;border-bottom:1px solid #ffd77855!important;padding:15px 8px!important}.perk:last-child{border-bottom:0!important}}
 
 .music-card{margin:18px 0 0;padding:18px;border:1px solid #ffd77855;border-radius:20px;background:#ffffff0b}
 .music-card h2{margin:0 0 8px;text-align:center;color:var(--gold);font:italic 1.45rem Georgia,serif}
@@ -134,12 +136,12 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
   </section>
 
   <section class="perks" aria-label="Lo que te espera en la celebración">
-    <h2 class="perks-title">¡Prepárate para disfrutar! ✨</h2>
+    <h2 class="perks-title">✨ Lo que nos espera ✨</h2>
     <div class="perks-grid">
-      <article class="perk"><div class="perk-icon" aria-hidden="true">🍽️</div><div><h3>Sabores para disfrutar</h3><p>Comida deliciosa para compartir, ¡por cuenta de la casa!</p></div></article>
-      <article class="perk"><div class="perk-icon" aria-hidden="true">🍹</div><div><h3>¡Salud por los buenos momentos!</h3><p>Barra libre de bebidas y tragos para brindar y celebrar.</p></div></article>
-      <article class="perk"><div class="perk-icon" aria-hidden="true">🎤</div><div><h3>La música no puede faltar</h3><p>Música en vivo para disfrutar, cantar y bailar.</p></div></article>
-      <article class="perk"><div class="perk-icon" aria-hidden="true">👟</div><div><h3>Dress code: Sport elegante</h3><p>Ven cómodo, luce tu estilo y trae las ganas de pasarla bien. ¡La formalidad se queda en casa!</p></div></article>
+      <article class="perk"><div class="perk-icon" aria-hidden="true">🎵</div><div><h3>Música en vivo</h3><p>para bailar y celebrar.</p></div></article>
+      <article class="perk"><div class="perk-icon" aria-hidden="true">🍹</div><div><h3>Barra libre</h3><p>para brindar por los buenos momentos.</p></div></article>
+      <article class="perk"><div class="perk-icon" aria-hidden="true">🍽️</div><div><h3>Una deliciosa propuesta gastronómica</h3><p>para disfrutar sin apuros.</p></div></article>
+      <article class="perk"><div class="perk-icon" aria-hidden="true">🎁</div><div><h3>Detalles navideños</h3><p>preparados con mucho cariño para llevar el espíritu de estas fiestas a casa.</p></div></article>
     </div>
   </section>
 
@@ -157,7 +159,7 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
     <a class="btn btn-gold" href="https://maps.app.goo.gl/m6HQCko57iNEJ1kaA" target="_blank" rel="noopener noreferrer">⌖ Ver ubicación en Maps</a>
     <button class="btn btn-light" id="rsvp">🎄 Confirmar asistencia</button>
   </section>
-  <p class="note">Al confirmar, se abrirá WhatsApp con un mensaje listo para enviar. Solo tendrás que tocar <strong>Enviar</strong>.</p>
+  <p class="note">Al tocar <strong>Confirmar asistencia</strong>, se abrirá WhatsApp con un mensaje listo para completar. <strong>Escribe tu nombre en el espacio indicado y luego pulsa Enviar.</strong> ¡Así sabremos quién nos acompañará! 🎄</p>
   <section class="music-card" aria-label="Música navideña">
     <h2>🎶 Música para celebrar</h2>
     <p>La canción que elegiste para acompañar nuestra celebración. Pulsa reproducir para escucharla.</p>
@@ -205,6 +207,7 @@ updateCountdown(); setInterval(updateCountdown,1000);
 document.getElementById("rsvp").addEventListener("click",()=>{
   const phone = WHATSAPP_ORGANIZADOR.replace(/\D/g,"");
   const msg = `¡Hola! Confirmo mi asistencia a ${EVENTO} 🎄
+
 Nombre: 
 `;
   const url = phone && !phone.includes("X") && phone.length >= 10
