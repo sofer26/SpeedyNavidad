@@ -40,6 +40,16 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
 .btn-gold{background:linear-gradient(135deg,#ffe6a0,#e8b94f);color:#2d2817;box-shadow:0 8px 22px #0002}
 .btn-light{background:#fff8e8;color:#163d2b;border:1px solid #e4d7b9}
 .note{font-size:.84rem;color:#d5e5d8;line-height:1.55;text-align:center}
+
+.perks{margin:18px 0 20px;padding:20px;border:1px solid #ffd77855;border-radius:20px;background:linear-gradient(135deg,#fffaf010,#ffd77808);box-shadow:0 10px 30px #0002}
+.perks-title{text-align:center;margin:0 0 15px;color:var(--gold);font:italic 1.55rem Georgia,serif}
+.perks-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.perk{display:flex;align-items:flex-start;gap:11px;padding:13px;border-radius:14px;background:#ffffff08;border:1px solid #fff4d51c}
+.perk-icon{font-size:1.5rem;line-height:1.25;flex:0 0 auto}
+.perk h3{margin:0 0 5px;color:#ffe3a0;font-size:.96rem}
+.perk p{margin:0;color:#e1eee4;font-size:.88rem;line-height:1.5}
+@media(max-width:560px){.perks{padding:15px}.perks-grid{grid-template-columns:1fr}.perk{padding:12px}}
+
 .music-card{margin:18px 0 0;padding:18px;border:1px solid #ffd77855;border-radius:20px;background:#ffffff0b}
 .music-card h2{margin:0 0 8px;text-align:center;color:var(--gold);font:italic 1.45rem Georgia,serif}
 .music-card p{margin:0 0 14px;text-align:center;color:#d5e5d8;font-size:.88rem;line-height:1.5}
@@ -121,6 +131,16 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
     <article class="info"><div class="icon">📅</div><h2>Fecha</h2><p id="eventDate">Sábado, 5 de diciembre de 2026</p></article>
     <article class="info"><div class="icon">🕐</div><h2>Hora</h2><p>1:00 p. m.</p></article>
     <article class="info" style="grid-column:1/-1"><div class="icon">📍</div><h2>¿Dónde nos vemos?</h2><p>Calle Nueva Castilla 123 — Santiago de Surco</p></article>
+  </section>
+
+  <section class="perks" aria-label="Lo que te espera en la celebración">
+    <h2 class="perks-title">¡Prepárate para disfrutar! ✨</h2>
+    <div class="perks-grid">
+      <article class="perk"><div class="perk-icon" aria-hidden="true">🍽️</div><div><h3>Sabores para disfrutar</h3><p>Comida deliciosa para compartir, ¡por cuenta de la casa!</p></div></article>
+      <article class="perk"><div class="perk-icon" aria-hidden="true">🍹</div><div><h3>¡Salud por los buenos momentos!</h3><p>Barra libre de bebidas y tragos para brindar y celebrar.</p></div></article>
+      <article class="perk"><div class="perk-icon" aria-hidden="true">🎤</div><div><h3>La música no puede faltar</h3><p>Música en vivo para disfrutar, cantar y bailar.</p></div></article>
+      <article class="perk"><div class="perk-icon" aria-hidden="true">👟</div><div><h3>Dress code: Sport elegante</h3><p>Ven cómodo, luce tu estilo y trae las ganas de pasarla bien. ¡La formalidad se queda en casa!</p></div></article>
+    </div>
   </section>
 
   <section class="countdown" aria-live="polite">
