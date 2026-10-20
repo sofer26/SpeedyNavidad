@@ -49,8 +49,17 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
 .perk-icon{font-size:clamp(2.1rem,4vw,3rem);line-height:1.2;filter:drop-shadow(0 3px 8px #ffd77833)}
 .perk h3{margin:0 0 7px;color:#ffe3a0;font-size:.92rem;text-transform:uppercase;letter-spacing:.035em}
 .perk p{margin:0;color:#e1eee4;font-size:.88rem;line-height:1.5}
-@media(max-width:700px){.perks-grid{grid-template-columns:repeat(2,minmax(0,1fr));row-gap:12px}.perk:nth-child(2){border-right:0}.perk:nth-child(1),.perk:nth-child(2){border-bottom:1px solid #ffd77855;padding-bottom:18px}.perk:nth-child(3),.perk:nth-child(4){padding-top:18px}}
-@media(max-width:400px){.perks{padding:12px}.perks-grid{grid-template-columns:1fr}.perk{border-right:0!important;border-bottom:1px solid #ffd77855!important;padding:15px 8px!important}.perk:last-child{border-bottom:0!important}}
+@media(max-width:700px){
+  /* Mantiene las cuatro experiencias en una franja horizontal, como el diseño de referencia */
+  .perks{padding:14px 10px}
+  .perks-grid{display:flex;flex-wrap:nowrap;overflow-x:auto;overscroll-behavior-x:contain;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:#ffd77888 transparent;padding-bottom:8px}
+  .perk{flex:0 0 145px;min-width:145px;padding:12px 10px;scroll-snap-align:start;border-right:1px solid #ffd77855!important;border-bottom:0!important}
+  .perk:last-child{border-right:0!important}
+  .perk-icon{font-size:2rem}
+  .perk h3{font-size:.76rem;line-height:1.3}
+  .perk p{font-size:.78rem;line-height:1.4}
+}
+@media(max-width:400px){.perks-title{font-size:1.35rem}.perk{flex-basis:132px;min-width:132px;padding:10px 8px}}
 
 .music-card{margin:18px 0 0;padding:18px;border:1px solid #ffd77855;border-radius:20px;background:#ffffff0b}
 .music-card h2{margin:0 0 8px;text-align:center;color:var(--gold);font:italic 1.45rem Georgia,serif}
@@ -159,10 +168,10 @@ h1 span{display:block;color:var(--gold);font-style:italic;font-size:.72em;margin
     <a class="btn btn-gold" href="https://maps.app.goo.gl/m6HQCko57iNEJ1kaA" target="_blank" rel="noopener noreferrer">⌖ Ver ubicación en Maps</a>
     <button class="btn btn-light" id="rsvp">🎄 Confirmar asistencia</button>
   </section>
-  <p class="note">Al tocar <strong>Confirmar asistencia</strong>, se abrirá WhatsApp con un mensaje listo para completar. <strong>Escribe tu nombre en el espacio indicado y luego pulsa Enviar.</strong> ¡Así sabremos quién nos acompañará! 🎄</p>
+  <p class="note">Se abrirá WhatsApp: escribe tu nombre y pulsa <strong>Enviar</strong>. 🎄</p>
   <section class="music-card" aria-label="Música navideña">
     <h2>🎶 Música para celebrar</h2>
-    <p>La canción que elegiste para acompañar nuestra celebración. Pulsa reproducir para escucharla.</p>
+    <p>Dale play y celebremos al ritmo de la Navidad. 🎄</p>
     <audio id="christmasAudio" autoplay preload="auto" playsinline>
       <source src="navidad-speedy.mp3" type="audio/mpeg">
       Tu navegador no puede reproducir audio HTML5.
